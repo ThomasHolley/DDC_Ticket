@@ -13,9 +13,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class TicketController extends AbstractController
 {
     #[Route('/home', name: 'home')]
-    public function index(): Response
+    public function index(EntityManagerInterface $emi)
     {
-        return $this->render("base.html.twig");
+
+        $Totalticket = $emi->getRepository('App:Ticket')->NbreticketNoReso();
+        
+        return $this->render("TabHome.html.twig", array('Totalticket'=>$Totalticket));
 
     }
     
@@ -25,9 +28,7 @@ class TicketController extends AbstractController
         $tickets = $emi->getRepository('App:Ticket')->findAll();
         
         return $this->render("listTicket.html.twig",array('tickets'=>$tickets));
-        
-        
-        
+         
     }
     
     /**

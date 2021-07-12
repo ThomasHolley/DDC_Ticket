@@ -19,6 +19,14 @@ class TicketRepository extends ServiceEntityRepository
         parent::__construct($registry, Ticket::class);
     }
     
+    public function NbreticketNoReso(){
+        return $this->createQueryBuilder('t')
+                ->where('t.Etat_Ticket = 1')
+                ->select('count(t.id)')
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
+    
 
     // /**
     //  * @return Ticket[] Returns an array of Ticket objects
