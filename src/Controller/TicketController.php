@@ -2,25 +2,45 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class TicketController extends AbstractController
 {
-    #[Route('/ticket', name: 'ticket')]
+    #[Route('/home', name: 'home')]
     public function index(): Response
     {
         return $this->render("base.html.twig");
 
     }
     
-    public function listTicketAction(){
+    #[Route('/tickets', name: 'List_ticket')]
+    public function listTicketAction(EntityManagerInterface $emi){
+        
+        $tickets = $emi->getRepository('App:Ticket')->findAll();
+        
+        return $this->render("listTicket.html.twig",array('tickets'=>$tickets));
+        
+        
         
     }
     
-    public function viewTicketAction(){
+    /**
+     * @Route("/ticket/{id}/", name="view_ticket")
+     * requirements={"id":"\d+"}
+     */
+    public function viewTicketAction($id, EntityManagerInterface $em){
+        $ticket = $em->getRepository('App:Ticket')->find($id);
         
+        if(!$ticket){
+            throw new NotFoundHttpException("Le $ticket n'existe pas");
+        }
+        return $this->render("ViewTicket.html.twig",array('ticket'=>$ticket));
     }
     
     public function addTicketAction(){
