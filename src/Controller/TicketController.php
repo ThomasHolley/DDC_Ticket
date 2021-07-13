@@ -2,13 +2,18 @@
 
 namespace App\Controller;
 
+
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
+use App\Entity\Ticket;
+use App\Form\TicketType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class TicketController extends AbstractController
 {
@@ -44,10 +49,32 @@ class TicketController extends AbstractController
         return $this->render("ViewTicket.html.twig",array('ticket'=>$ticket));
     }
     
-    public function addTicketAction(){
+    /**
+     * @Route("/add/", name="add_ticket")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addTicketAction(Request $request){
         
+        $ticket = new Ticket();
+        $form = $this->createForm(TicketType::class, $ticket);
+        $form->add('send', SubmitType::class, ['label' => 'créé un nouveau ticket']);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()){
+            $ticket->setDate(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticket);
+            $em->flush();
+            return $this->redirectToRoute('List_ticket');
+        }
+        
+        return $this->render("add.html.twig", array('form' => $form->createView()));
         
     }
+    
+    
     
     public function editTicketAction(){
         

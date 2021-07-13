@@ -21,7 +21,7 @@ class TicketRepository extends ServiceEntityRepository
     
     public function NbreticketNoReso(){
         return $this->createQueryBuilder('t')
-                ->where('t.Etat_Ticket = 1')
+                ->where('t.EtatTicket = 1')
                 ->select('count(t.id)')
                 ->getQuery()
                 ->getSingleScalarResult();

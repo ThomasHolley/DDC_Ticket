@@ -49,7 +49,7 @@ class Ticket
      * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="Etat_Ticket")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Etat_Ticket;
+    private $EtatTicket;
 
     public function getId(): ?int
     {
@@ -116,14 +116,14 @@ class Ticket
         return $this;
     }
 
-    public function getEtat_Ticket(): ?Etat
+    public function getEtatTicket(): ?Etat
     {
-        return $this->Etat_Ticket;
+        return $this->EtatTicket;
     }
 
-    public function setEtat_Ticket(?Etat $Etat_Ticket): self
+    public function setEtatTicket(?Etat $EtatTicket): self
     {
-        $this->Etat_Ticket = $Etat_Ticket;
+        $this->EtatTicket = $EtatTicket;
 
         return $this;
     }
