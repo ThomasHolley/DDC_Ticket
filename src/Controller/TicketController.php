@@ -46,6 +46,7 @@ class TicketController extends AbstractController
     
     public function addTicketAction(){
         
+        
     }
     
     public function editTicketAction(){
