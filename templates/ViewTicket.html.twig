@@ -11,12 +11,12 @@
 	<div class="row justify-content-md-center ">
 		<div class="col-md-auto">
 			<div class="card" style="width: 50rem;">
-				<div class="card-header">{{ticket.Titre}}</div>
+				<div class="card-header">{{ticket.Titre}}<p class="card-text text-center">{{ticket.EtatTicket}}</p></div>
 				<div class="card-body">
 					<p class="card-text text-center">{{ticket.Message}}</p>
 				</div>
 				<div class="card-footer">
-					<a type="button" class="btn btn-warning" href="" class="card-link">Edit</a>
+					<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">Edit</a>
 					<a type="button" class="btn btn-danger" href="" class="card-link">Supprimer</a>
 				</div>
 			</div><br>

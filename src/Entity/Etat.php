@@ -44,6 +44,11 @@ class Etat
 
         return $this;
     }
+    
+    public function __toString()
+    {
+        return $this->statut;
+    }
 
 
 }

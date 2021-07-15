@@ -27,6 +27,30 @@ class TicketRepository extends ServiceEntityRepository
                 ->getSingleScalarResult();
     }
     
+    public function NbreticketOuvert(){
+        return $this->createQueryBuilder('t')
+                ->where('t.EtatTicket = 2')
+                ->select('count(t.id)')
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
+    
+    public function findTicketNoFerme(){
+        return $this->createQueryBuilder('t')
+        ->where('t.EtatTicket != 4')
+        ->getQuery()
+        ->getResult();
+    }
+    
+    public function findTicketFerme(){
+        return $this->createQueryBuilder('t')
+        ->where('t.EtatTicket = 4')
+        ->getQuery()
+        ->getResult();
+    }
+    }
+    
+    
 
     // /**
     //  * @return Ticket[] Returns an array of Ticket objects
@@ -56,4 +80,4 @@ class TicketRepository extends ServiceEntityRepository
         ;
     }
     */
-}
+

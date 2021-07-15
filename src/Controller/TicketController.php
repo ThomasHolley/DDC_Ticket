@@ -21,16 +21,17 @@ class TicketController extends AbstractController
     public function index(EntityManagerInterface $emi)
     {
 
-        $Totalticket = $emi->getRepository('App:Ticket')->NbreticketNoReso();
+        $TotalticketNoReso = $emi->getRepository('App:Ticket')->NbreticketNoReso();
+        $TotalticketOuvert = $emi->getRepository('App:Ticket')->NbreticketOuvert();
         
-        return $this->render("TabHome.html.twig", array('Totalticket'=>$Totalticket));
+        return $this->render("TabHome.html.twig", array('TotalticketNR'=>$TotalticketNoReso, 'TotalTicketO'=>$TotalticketOuvert));
 
     }
     
     #[Route('/tickets', name: 'List_ticket')]
     public function listTicketAction(EntityManagerInterface $emi){
         
-        $tickets = $emi->getRepository('App:Ticket')->findAll();
+        $tickets = $emi->getRepository('App:Ticket')->findTicketNoFerme();
         
         return $this->render("listTicket.html.twig",array('tickets'=>$tickets));
          
@@ -75,8 +76,27 @@ class TicketController extends AbstractController
     }
     
     
-    
-    public function editTicketAction(){
+    /**
+     * 
+     *
+     *@Route("/edit/{id}", name="edit_ticket")
+     */
+    public function editTicketAction($id, EntityManagerInterface $em, Request $request){
+        $ticket = $em->getRepository('App:Ticket')->find($id);
+        $form = $this->createForm(TicketType::class, $ticket);
+        $form->add('send', SubmitType::class, ['label' => 'créé un nouveau ticket']);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()){
+            $ticket->setDate(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticket);
+            $em->flush();
+            return $this->redirectToRoute('List_ticket');
+        }
+        
+        return $this->render("edit.html.twig", array('form' => $form->createView()));
+        
         
     }
     
