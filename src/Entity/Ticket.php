@@ -130,6 +130,6 @@ class Ticket
     
     public function __toString()
     {
-        return (string) $this->getEtat_Ticket();
+        return (string) $this->getEtatTicket();
     }
 }
