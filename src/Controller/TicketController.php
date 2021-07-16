@@ -37,6 +37,17 @@ class TicketController extends AbstractController
          
     }
     
+    #[Route('/ticketsFerme', name: 'List_ticket_Ferme')]
+    public function listTicketFermeAction(EntityManagerInterface $emi){
+        
+        $tickets = $emi->getRepository('App:Ticket')->findTicketFerme();
+        
+        return $this->render("listTicketFerme.html.twig",array('tickets'=>$tickets));
+         
+    }
+    
+    
+    
     /**
      * @Route("/ticket/{id}/", name="view_ticket")
      * requirements={"id":"\d+"}
@@ -99,8 +110,23 @@ class TicketController extends AbstractController
         
         
     }
-    
-    public function deleteTicketAction(){
+    /**
+     * 
+     *
+     *@Route("/delete/{id}", name="delete_ticket")
+     */
+    public function deleteAction($id, EntityManagerInterface $em){
+        
+        $ticket = $em->getRepository('App:Ticket')->find($id);
+        
+        if(!$ticket){
+            throw new NotFoundHttpException("Le ticket $ticket n'existe pas");
+        }
+        else {
+            $em->remove($ticket);
+            $em->flush();
+            return $this->render("TabHome.html.twig");
+        }
         
     }
 }
