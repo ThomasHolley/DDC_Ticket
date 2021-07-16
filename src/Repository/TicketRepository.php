@@ -48,6 +48,16 @@ class TicketRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+    
+    
+    public function findTicketUser($username){
+        return $this->createQueryBuilder('t')
+        ->where('t.Demandeur = :actual' )->setParameter('actual', $username)
+        ->getQuery()
+        ->getResult();
+    }
+    
+    
     }
     
     

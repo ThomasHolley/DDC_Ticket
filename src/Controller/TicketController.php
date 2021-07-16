@@ -42,10 +42,11 @@ class TicketController extends AbstractController
      */
     public function listTicketAction(EntityManagerInterface $emi)
     {
-
+        $username = $this->getUser()->getUsername();
         $tickets = $emi->getRepository('App:Ticket')->findTicketNoFerme();
+        $ticketuser = $emi->getRepository('App:Ticket')->findTicketUser($username);
 
-        return $this->render("ticket/listTicket.html.twig", array('tickets' => $tickets));
+        return $this->render("ticket/listTicket.html.twig", array('tickets' => $tickets, 'ticketuser' => $ticketuser));
     }
 
     
@@ -86,7 +87,7 @@ class TicketController extends AbstractController
      */
     public function addTicketAction(Request $request)
     {
-
+        $username = $this->getUser()->getUsername();
         $ticket = new Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
         $form->add('send', SubmitType::class, ['label' => 'créé un nouveau ticket']);
@@ -94,6 +95,7 @@ class TicketController extends AbstractController
 
         if ($form->isSubmitted()) {
             $ticket->setDate(new \DateTime());
+            $ticket->setDemandeur($username);
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();

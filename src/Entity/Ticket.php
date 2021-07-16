@@ -39,7 +39,7 @@ class Ticket
     private $Demandeur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="email")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Agents")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Agent;
@@ -126,7 +126,7 @@ class Ticket
 
         return $this;
     }
-    
+
     public function __toString()
     {
         return (string) $this->getEtatTicket();

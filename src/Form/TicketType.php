@@ -11,6 +11,7 @@ use Doctrine\DBAL\Types\StringType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,9 +22,7 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('Titre', TextType::class)
-            ->add('Message', TextType::class)
-            ->add('Date', DateTimeType::class, ['data' => new \DateTime()] )
-            ->add('Demandeur', TextType::class)
+            ->add('Message', TextareaType::class)
             ->add('Agent', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'email',

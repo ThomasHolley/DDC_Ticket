@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}
+	<h1>Ticket</h1>
+{% endblock %}
+
+{% block nav %}{{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<div class="row justify-content-md-center ">
+		<div class="col-md-auto">
+			<div class="card" style="width: 50rem;">
+				<div class="card-header">{{ticket.Titre}}<p class="card-text text-center">{{ticket.EtatTicket}}</p></div>
+				<div class="card-body">
+					<p class="card-text text-center">{{ticket.Message}}</p>
+				</div>
+				<div class="card-footer">
+					<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">Edit</a>
+					<a type="button" class="btn btn-danger" href="" class="card-link">Supprimer</a>
+				</div>
+			</div><br>
+		</div>
+	</div>
+
+{% endblock %}

@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
 	<a type="button" class="btn btn-warning" href="{{path('List_ticket_Ferme') }}" class="card-link">Afficher les tickets ferme</a>
 
 	{% for ticket in tickets %}
@@ -16,6 +17,16 @@
 			<div class="card" style="width: 50rem;">
 				<div class="card-body">
 					<a href="ticket/{{ticket.id}}">{{ticket.Titre}}</a>
+				</div>
+			</div>
+		</ul>
+	{% endfor %}
+	{% endif %}
+	{% for ticketuser in ticketuser %}
+		<ul>
+			<div class="card" style="width: 50rem;">
+				<div class="card-body">
+					<a href="ticket/{{ticketuser.id}}">{{ticketuser.Titre}}</a>
 				</div>
 			</div>
 		</ul>
