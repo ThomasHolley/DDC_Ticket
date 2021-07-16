@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Dealer;
 use App\Entity\Etat;
 use App\Entity\Ticket;
+use App\Entity\User;
 use Doctrine\DBAL\Types\StringType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,13 +23,10 @@ class TicketType extends AbstractType
             ->add('Titre', TextType::class)
             ->add('Message', TextType::class)
             ->add('Date', DateTimeType::class, ['data' => new \DateTime()] )
-            ->add('Demandeur', EntityType::class, [
-                'class' => Client::class,
-                'choice_label' => 'mail',
-            ])
+            ->add('Demandeur', TextType::class)
             ->add('Agent', EntityType::class, [
-                'class' => Dealer::class,
-                'choice_label' => 'Nom',
+                'class' => User::class,
+                'choice_label' => 'email',
             ])
             ->add('EtatTicket', EntityType::class, [
                 'class' => Etat::class,

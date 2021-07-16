@@ -34,13 +34,12 @@ class Ticket
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="tickets")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $Demandeur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Dealer::class, inversedBy="DealerTicket")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="email")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Agent;
@@ -92,24 +91,24 @@ class Ticket
         return $this;
     }
 
-    public function getDemandeur(): ?Client
+    public function getDemandeur(): ?string
     {
         return $this->Demandeur;
     }
 
-    public function setDemandeur(?Client $Demandeur): self
+    public function setDemandeur(string $Demandeur): self
     {
         $this->Demandeur = $Demandeur;
 
         return $this;
     }
 
-    public function getAgent(): ?Dealer
+    public function getAgent(): ?User
     {
         return $this->Agent;
     }
 
-    public function setAgent(?Dealer $Agent): self
+    public function setAgent(?User $Agent): self
     {
         $this->Agent = $Agent;
 
