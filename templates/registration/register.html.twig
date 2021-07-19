@@ -1,25 +1,32 @@
-		<title>
-			{% block title %}DDC Ticker
-			{% endblock %}
-		</title>
-		{# Run `composer require symfony/webpack-encore-bundle`
+<title>
+	{% block title %}DDC Ticker
+	{% endblock %}
+</title>
+{# Run `composer require symfony/webpack-encore-bundle`
 				           and uncomment the following Encore helpers to start using Symfony UX #}
-		{% block stylesheets %}
-			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-		{% endblock %}
+{% endblock %}
 
 {% block body %}
-
-	{{ form_start(registrationForm) }}
-	{{ form_row(registrationForm.username) }}
-	{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.plainPassword, {
+	<div class="card">
+		<div class="card-header text-center">
+			S'INSCRIRE
+		</div>
+		<div class="card-body ">
+			{{ form_start(registrationForm) }}
+			{{ form_row(registrationForm.username) }}
+			{{ form_row(registrationForm.email) }}
+			{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-	{{ form_row(registrationForm.agreeTerms) }}
+			{{ form_row(registrationForm.Conditions_d_utilisation) }}
+			<button type="submit" class="btn btn-lg btn-primary">S'Inscrire</button>
+			<button type="button" class="btn btn-lg btn-warning"><a href="{{ path('app_login')}}" class="card-link">Annuler</a></button>
+			
 
-	<button type="submit" class="btn btn-lg btn-primary">Register</button>
-	{{ form_end(registrationForm) }}
-    <a type="button" class="btn btn-warning" href="{{ path('app_login')}}" class="card-link">Retour</a>
+			{{ form_end(registrationForm) }}
+		</div>
+	</div>
 {% endblock %}

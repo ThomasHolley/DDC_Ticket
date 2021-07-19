@@ -1,14 +1,13 @@
-		<title>
-			{% block title %}DDC Ticker
-			{% endblock %}
-		</title>
-		{# Run `composer require symfony/webpack-encore-bundle`
+<title>
+	{% block title %}DDC Ticker
+	{% endblock %}
+</title>
+{# Run `composer require symfony/webpack-encore-bundle`
 				           and uncomment the following Encore helpers to start using Symfony UX #}
-		{% block stylesheets %}
-			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-		{% endblock %}
-
+{% endblock %}
 
 
 {% block body %}
@@ -24,34 +23,40 @@
 				<a href="{{ path('app_logout') }}">Logout</a>
 			</div>
 		{% endif %}
+		<div class="card">
+			<div class="card-header text-center">
+				SE CONNECTER
+			</div>
+			<div class="card-body ">
+				<div class="mb-3">
+					<label for="inputEmail">Email</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="name@example.com">
+				</div>
+				<div class="mb-3">
+					<label for="inputPassword">Password</label>
+					<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+				</div>
+				<input
+				type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-		<div class="mb-3">
-			<label for="inputEmail">Email</label>
-			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="name@example.com">
+				{#
+					Uncomment this section and add a remember_me option below your firewall to activate remember me functionality. 
+					See https://symfony.com/doc/current/security/remember_me.html
+				#}
+				<div class="checkbox mb-3">
+					<label>
+						<input type="checkbox" name="_remember_me">
+						Se Souvenir de moi
+					</label>
+				</div>
+
+				<button class="btn btn-lg btn-primary" type="submit">
+					Se Connecter
+				</button>
+				<button class="btn btn-lg btn-outline-secondary" type="submit">
+					<a href="{{ path('app_register') }}">S'Inscrire</a>
+				</button>
+			</form>
 		</div>
-		<div class="mb-3">
-			<label for="inputPassword">Password</label>
-			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-		</div>
-		<input
-		type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-		{#
-						        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-						        See https://symfony.com/doc/current/security/remember_me.html
-						
-						        <div class="checkbox mb-3">
-						            <label>
-						                <input type="checkbox" name="_remember_me"> Remember me
-						            </label>
-						        </div>
-						    #}
-
-		<button class="btn btn-lg btn-primary" type="submit">
-			S'identifier
-		</button>
-		<button class="btn btn-lg btn-outline-secondary" type="submit">
-			<a href="{{ path('app_register') }}">s'enregistrer</a>
-		</button>
-	</form>
+	</div>
 {% endblock %}
