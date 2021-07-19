@@ -10,7 +10,9 @@ use App\Form\EditUserType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -86,8 +88,9 @@ class TicketController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addTicketAction(Request $request)
+    public function addTicketAction(MailerInterface $mailer, Request $request)
     {
+        $user = $this->getUser()->getEmail();
         $username = $this->getUser()->getUsername();
         $ticket = new Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
@@ -100,6 +103,14 @@ class TicketController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();
+            $email = (new TemplatedEmail())
+                ->from('alienmailcarrier@example.com')
+                ->to($user)
+                ->subject('Ticket ajouté')
+                ->htmlTemplate('email/addTicketSuccess.html.twig');
+
+            $mailer->send($email);
+            
             return $this->redirectToRoute('app_home');
         }
 
@@ -135,7 +146,6 @@ class TicketController extends AbstractController
      * 
      *
      *@Route("/delete/{id}", name="delete_ticket")
-     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteAction($id, EntityManagerInterface $em)
     {

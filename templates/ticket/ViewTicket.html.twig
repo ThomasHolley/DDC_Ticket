@@ -19,7 +19,10 @@
 					<p class="card-text text-center">{{ticket.Message}}</p>
 				</div>
 				<div class="card-footer">
-					<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">Edit</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">Modifier</a>
+					{% endif %}
+
 					<a type="button" class="btn btn-danger" href="/delete/{{ticket.id}}" class="card-link">Supprimer</a>
 				</div>
 			</div><br>

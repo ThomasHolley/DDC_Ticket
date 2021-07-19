@@ -7,6 +7,7 @@
     <table class="table">
         <thead>
             <th scope="col">ID</th>
+            <th scope="col">Nom d'utilisateur</th>
             <th scope="col">Email</th>
             <th scope="col">Rôles</th>
             <th scope="col">Action</th>
@@ -16,6 +17,7 @@
             {% for user in users %}
                 <tr>
                     <td scope="row">{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>
                         {# On boucle sur les rôles #}

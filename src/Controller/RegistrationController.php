@@ -39,10 +39,8 @@ class RegistrationController extends AbstractController
                 ->from('alienmailcarrier@example.com')
                 ->to($user->getEmail())
                 ->subject('Confirmation d\'inscription!')
-                ->htmlTemplate('email/welcome.html.twig')
-                ->context([
-                    'user' => $user,
-                ]);
+                ->htmlTemplate('email/welcome.html.twig');
+
             $mailer->send($email);
 
             return $this->redirectToRoute('app_login');
