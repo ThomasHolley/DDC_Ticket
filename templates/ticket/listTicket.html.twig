@@ -10,8 +10,6 @@
 
 {% block body %}
 {% if is_granted('ROLE_ADMIN') %}
-	<a type="button" class="btn btn-warning" href="{{path('List_ticket_Ferme') }}" class="card-link">Afficher les tickets ferme</a>
-
 	{% for ticket in tickets %}
 		<ul>
 			<div class="card" style="width: 50rem;">

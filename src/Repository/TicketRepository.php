@@ -18,47 +18,60 @@ class TicketRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Ticket::class);
     }
-    
-    public function NbreticketNoReso(){
+
+    public function NbreticketNoReso()
+    {
         return $this->createQueryBuilder('t')
-                ->where('t.EtatTicket = 1')
-                ->select('count(t.id)')
-                ->getQuery()
-                ->getSingleScalarResult();
+            ->where('t.EtatTicket = 1')
+            ->select('count(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
-    
-    public function NbreticketOuvert(){
+
+    public function NbreticketOuvert()
+    {
         return $this->createQueryBuilder('t')
-                ->where('t.EtatTicket = 2')
-                ->select('count(t.id)')
-                ->getQuery()
-                ->getSingleScalarResult();
+            ->where('t.EtatTicket = 2')
+            ->select('count(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
-    
-    public function findTicketNoFerme(){
+    public function NbreticketFerme()
+    {
         return $this->createQueryBuilder('t')
-        ->where('t.EtatTicket != 4')
-        ->getQuery()
-        ->getResult();
+            ->where('t.EtatTicket = 4')
+            ->select('count(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
-    
-    public function findTicketFerme(){
+
+    public function findTicketNoFerme()
+    {
         return $this->createQueryBuilder('t')
-        ->where('t.EtatTicket = 4')
-        ->getQuery()
-        ->getResult();
+            ->where('t.EtatTicket != 4')
+            ->getQuery()
+            ->getResult();
     }
-    
-    
-    public function findTicketUser($username){
+
+    public function findTicketFerme()
+    {
         return $this->createQueryBuilder('t')
-        ->where('t.Demandeur = :actual' )->setParameter('actual', $username)
-        ->getQuery()
-        ->getResult();
+            ->where('t.EtatTicket = 4')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findTicketUser($username)
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.Demandeur = :actual')->setParameter('actual', $username)
+            ->getQuery()
+            ->getResult();
     }
     
-    
-    }
+
+}
     
     
 
@@ -90,4 +103,3 @@ class TicketRepository extends ServiceEntityRepository
         ;
     }
     */
-

@@ -31,8 +31,9 @@ class TicketController extends AbstractController
 
         $TotalticketNoReso = $emi->getRepository('App:Ticket')->NbreticketNoReso();
         $TotalticketOuvert = $emi->getRepository('App:Ticket')->NbreticketOuvert();
+        $TotalticketFerme = $emi->getRepository('App:Ticket')->NbreticketFerme();
 
-        return $this->render("Home.html.twig", array('TotalticketNR' => $TotalticketNoReso, 'TotalTicketO' => $TotalticketOuvert));
+        return $this->render("Home.html.twig", array('TotalticketNR' => $TotalticketNoReso, 'TotalTicketO' => $TotalticketOuvert, 'TotalTicketF' => $TotalticketFerme));
     }
 
 
