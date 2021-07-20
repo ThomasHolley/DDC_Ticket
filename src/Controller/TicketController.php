@@ -82,6 +82,7 @@ class TicketController extends AbstractController
         return $this->render("ticket/ViewTicket.html.twig", array('ticket' => $ticket));
     }
 
+    
     /**
      * @Route("/add/", name="add_ticket")
      *
@@ -157,7 +158,7 @@ class TicketController extends AbstractController
         } else {
             $em->remove($ticket);
             $em->flush();
-            return $this->render("ticket/listTicket.html.twig");
+            return $this->redirectToRoute("List_ticket");
         }
     }
 }
