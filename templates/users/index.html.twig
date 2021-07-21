@@ -9,26 +9,28 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<p>Nom :
-					{{ app.user.name }}</p>
-				<p>Prénom :
-					{{ app.user.firstname }}</p>
-				<p>Nom d'utilisateur :
-					{{ app.user.username }}</p>
-				<p>E-mail :
-					{{ app.user.email }}</p>
-			</div>
-			<div class="col">
-				Column
-			</div>
-			<div class="col">
-				Column
+	<div class="card">
+		<div class="card-body">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p>Nom :
+							{{ app.user.name }}</p>
+						<p>Prénom :
+							{{ app.user.firstname }}</p>
+						<p>Nom d'utilisateur :
+							{{ app.user.username }}</p>
+						<p>E-mail :
+							{{ app.user.email }}</p>
+					</div>
+					<div class="col">
+						Column
+					</div>
+					<div class="col">
+						Column
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
 {% endblock %}

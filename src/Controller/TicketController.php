@@ -51,7 +51,7 @@ class TicketController extends AbstractController
 
         return $this->render("ticket/listTicket.html.twig", array('tickets' => $tickets, 'ticketuser' => $ticketuser));
     }
-    
+
     /**
      * @Route("/ListTicketUser", name="List_ticket_User")
      * 
@@ -84,7 +84,7 @@ class TicketController extends AbstractController
      * requirements={"id":"\d+"}
      *  
      */
-    public function viewTicketAction(/*MailerInterface $mailer */ $id, EntityManagerInterface $em, Request $request)
+    public function viewTicketAction(/*MailerInterface $mailer */$id, EntityManagerInterface $em, Request $request)
     {
         $ticket = $em->getRepository('App:Ticket')->find($id);
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy([
@@ -196,7 +196,7 @@ class TicketController extends AbstractController
             return $this->redirectToRoute("List_ticket");
         }
     }
-    
+
     /**
      *
      *@Route("/deleteComment/{id}", name="delete_Comment")
