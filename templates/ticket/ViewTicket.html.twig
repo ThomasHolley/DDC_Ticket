@@ -22,11 +22,29 @@
 					{% if is_granted('ROLE_ADMIN') %}
 						<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">Modifier</a>
 					{% endif %}
-
 					<a type="button" class="btn btn-danger" href="/delete/{{ticket.id}}" class="card-link">Supprimer</a>
 				</div>
 			</div><br>
 		</div>
 	</div>
 
-{% endblock %}
+	<div class="col">{{('Commentaires')|trans({},'blog')}}:
+		{% for comment in comments %}
+			<ul>
+				<div class="card" style="width: 50rem;">
+
+					<div class="card-body">
+						<p>{{comment.message}}</p>
+					</div>
+					<div class="card-footer">
+						<p>{{comment.auteur}}</p>
+					</div>
+				</div>
+			</ul>
+		{% else %}
+			<p>Il n'y a pas encore de commentaire, publiez le premier !</p>
+		{% endfor %}
+		{{ form(form) }}
+		</div>
+
+	{% endblock %}

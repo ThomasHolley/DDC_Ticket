@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}
+	<h1>Ticket</h1>
+{% endblock %}
+
+{% block nav %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    {{include('ticket/formComment.html.twig')}}
+{% endblock %}

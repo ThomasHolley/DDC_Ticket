@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Ticket;
+use App\Form\CommentType;
 use App\Form\TicketType;
 use App\Form\EditUserType;
 use Doctrine\ORM\EntityManager;
@@ -72,14 +73,36 @@ class TicketController extends AbstractController
      * requirements={"id":"\d+"}
      *  
      */
-    public function viewTicketAction($id, EntityManagerInterface $em)
+    public function viewTicketAction($id, EntityManagerInterface $em,Request $request)
     {
         $ticket = $em->getRepository('App:Ticket')->find($id);
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy([
+            'ticket' => $ticket
+        ]);
+        
 
         if (!$ticket) {
             throw new NotFoundHttpException("Le $ticket n'existe pas");
         }
-        return $this->render("ticket/ViewTicket.html.twig", array('ticket' => $ticket));
+        
+        $username = $this->getUser()->getUsername();
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->add('send', SubmitType::class, ['label' => 'Ajouter un commentaire']);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()){
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setAuteur($username);
+            $comment->setTicket($ticket);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+            
+            return $this->redirectToRoute('List_ticket');;
+        }
+        
+        return $this->render("ticket/ViewTicket.html.twig", array('form' => $form->createView(),'ticket' => $ticket, 'comments'=>$comments));
     }
 
     
@@ -91,7 +114,6 @@ class TicketController extends AbstractController
      */
     public function addTicketAction(MailerInterface $mailer, Request $request)
     {
-        $user = $this->getUser()->getEmail();
         $username = $this->getUser()->getUsername();
         $ticket = new Ticket();
         $form = $this->createForm(TicketType::class, $ticket);
@@ -104,13 +126,6 @@ class TicketController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();
-            $email = (new TemplatedEmail())
-                ->from('alienmailcarrier@example.com')
-                ->to($user)
-                ->subject('Ticket ajouté')
-                ->htmlTemplate('email/addTicketSuccess.html.twig');
-
-            $mailer->send($email);
             
             return $this->redirectToRoute('app_home');
         }
@@ -161,4 +176,6 @@ class TicketController extends AbstractController
             return $this->redirectToRoute("List_ticket");
         }
     }
+    
+    
 }

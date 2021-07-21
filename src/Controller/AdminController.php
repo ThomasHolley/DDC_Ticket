@@ -61,7 +61,7 @@ class AdminController extends AbstractController
         } else {
             $em->remove($user);
             $em->flush();
-            return $this->render("Home.html.twig");
+            return $this->redirectToRoute("app_home");
         }
     }
 }

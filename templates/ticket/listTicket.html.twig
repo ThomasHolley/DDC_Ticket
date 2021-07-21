@@ -10,16 +10,16 @@
 
 {% block body %}
 	{% if is_granted('ROLE_ADMIN') %}
-			{% for ticket in tickets %}
-				<ul>
-					<div class="card" style="width: 50rem;">
-						<div class="card-body">
-							<a href="ticket/{{ticket.id}}">{{ticket.Titre}}</a>
-						</div>
+		{% for ticket in tickets %}
+			<ul>
+				<div class="card" style="width: 50rem;">
+					<div class="card-body">
+						<a href="ticket/{{ticket.id}}">{{ticket.Titre}}</a>
 					</div>
-				</ul>
-			{% endfor %}
-		{% endif %}
+				</div>
+			</ul>
+		{% endfor %}
+	{% endif %}
 	{% for ticketuser in ticketuser %}
 		<ul>
 			<div class="card" style="width: 50rem;">
