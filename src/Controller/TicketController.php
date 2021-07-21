@@ -64,7 +64,6 @@ class TicketController extends AbstractController
         return $this->render("demandeur/listTicket.html.twig", array('ticketuser' => $ticketuser));
     }
 
-
     /**
      * @Route("/ListTicketFerme", name="List_ticket_Ferme")
      * 
