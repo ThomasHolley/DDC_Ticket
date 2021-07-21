@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
             $email = (new TemplatedEmail())
-                ->from('alienmailcarrier@example.com')
+                ->from('Ticket@dealerdecoque.fr')
                 ->to($user->getEmail())
                 ->subject('Confirmation d\'inscription!')
                 ->htmlTemplate('email/welcome.html.twig');

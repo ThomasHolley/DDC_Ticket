@@ -31,7 +31,6 @@ class TicketController extends AbstractController
      */
     public function index(EntityManagerInterface $emi)
     {
-
         $TotalticketNoReso = $emi->getRepository('App:Ticket')->NbreticketNoReso();
         $TotalticketOuvert = $emi->getRepository('App:Ticket')->NbreticketOuvert();
         $TotalticketFerme = $emi->getRepository('App:Ticket')->NbreticketFerme();
@@ -51,6 +50,18 @@ class TicketController extends AbstractController
         $ticketuser = $emi->getRepository('App:Ticket')->findTicketUser($username);
 
         return $this->render("ticket/listTicket.html.twig", array('tickets' => $tickets, 'ticketuser' => $ticketuser));
+    }
+    
+    /**
+     * @Route("/ListTicketUser", name="List_ticket_User")
+     * 
+     */
+    public function listTicketUserAction(EntityManagerInterface $emi)
+    {
+        $username = $this->getUser()->getUsername();
+        $ticketuser = $emi->getRepository('App:Ticket')->findTicketUser($username);
+
+        return $this->render("demandeur/listTicket.html.twig", array('ticketuser' => $ticketuser));
     }
 
 
@@ -73,39 +84,49 @@ class TicketController extends AbstractController
      * requirements={"id":"\d+"}
      *  
      */
-    public function viewTicketAction($id, EntityManagerInterface $em,Request $request)
+    public function viewTicketAction(/*MailerInterface $mailer */ $id, EntityManagerInterface $em, Request $request)
     {
         $ticket = $em->getRepository('App:Ticket')->find($id);
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy([
             'ticket' => $ticket
         ]);
-        
+
 
         if (!$ticket) {
             throw new NotFoundHttpException("Le $ticket n'existe pas");
         }
-        
+
         $username = $this->getUser()->getUsername();
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->add('send', SubmitType::class, ['label' => 'Ajouter un commentaire']);
         $form->handleRequest($request);
-        
-        if($form->isSubmitted()){
+
+        if ($form->isSubmitted()) {
             $comment->setCreatedAt(new \DateTime());
             $comment->setAuteur($username);
             $comment->setTicket($ticket);
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
-            
+            //possibilité de rajouter l'envoie d'un mail
+            /**
+             * $email = (new TemplatedEmail())
+             * ->from('Ticket@dealerdecoque.fr')
+             * ->to($user->getEmail())
+             * ->subject('Confirmation d\'inscription!')
+             *->htmlTemplate('email/welcome.html.twig');
+
+             * $mailer->send($email);
+             */
+
             return $this->redirectToRoute('List_ticket');;
         }
-        
-        return $this->render("ticket/ViewTicket.html.twig", array('form' => $form->createView(),'ticket' => $ticket, 'comments'=>$comments));
+
+        return $this->render("ticket/ViewTicket.html.twig", array('form' => $form->createView(), 'ticket' => $ticket, 'comments' => $comments));
     }
 
-    
+
     /**
      * @Route("/add/", name="add_ticket")
      *
@@ -126,7 +147,7 @@ class TicketController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();
-            
+
             return $this->redirectToRoute('app_home');
         }
 
@@ -159,7 +180,6 @@ class TicketController extends AbstractController
 
 
     /**
-     * 
      *
      *@Route("/delete/{id}", name="delete_ticket")
      */
@@ -177,5 +197,21 @@ class TicketController extends AbstractController
         }
     }
     
-    
+    /**
+     *
+     *@Route("/deleteComment/{id}", name="delete_Comment")
+     */
+    public function deleteCommentAction($id, EntityManagerInterface $em)
+    {
+
+        $comment = $em->getRepository('App:Comment')->find($id);
+
+        if (!$comment) {
+            throw new NotFoundHttpException("Le commentaire $comment n'existe pas");
+        } else {
+            $em->remove($comment);
+            $em->flush();
+            return $this->redirectToRoute("List_ticket");
+        }
+    }
 }

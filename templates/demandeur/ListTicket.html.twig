@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block h1 %}
+	<h1>Ticket</h1>
+{% endblock %}
+
+{% block nav %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	{% for ticketuser in ticketuser %}
+		<ul>
+			<div class="card" style="width: 50rem;">
+				<div class="card-body">
+					<a href="ticket/{{ticketuser.id}}">{{ticketuser.Titre}}</a>
+				</div>
+			</div>
+		</ul>
+	{% endfor %}
+{% endblock %}

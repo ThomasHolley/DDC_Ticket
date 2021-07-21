@@ -36,6 +36,8 @@ class EditUserType extends AbstractType
             'label' => 'Rôles' 
         ])
             ->add('password')
+            ->add('name')
+            ->add('firstname')
             ->add('username')
             ->add('valider', SubmitType::class)
         ;

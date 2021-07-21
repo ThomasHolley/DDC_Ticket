@@ -142,7 +142,9 @@ class Ticket
     public function __toString()
     {
         return (string) $this->getEtatTicket();
+        return (string) $this->getDate();
     }
+    
 
     /**
      * @return Collection|Comment[]

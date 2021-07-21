@@ -14,7 +14,9 @@
 			<ul>
 				<div class="card" style="width: 50rem;">
 					<div class="card-body">
-						<a href="ticket/{{ticket.id}}">{{ticket.Titre}}</a>
+						<h5 class="card-title"><a href="ticket/{{ticket.id}}">{{ticket.Titre}}</a></h5>
+						<h6 class="card-subtitle mb-2 text-muted">{{ticket.demandeur}} - Le ticket est {{ticket.EtatTicket}}</h6>
+
 					</div>
 				</div>
 			</ul>
@@ -25,6 +27,8 @@
 			<div class="card" style="width: 50rem;">
 				<div class="card-body">
 					<a href="ticket/{{ticketuser.id}}">{{ticketuser.Titre}}</a>
+					<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+
 				</div>
 			</div>
 		</ul>

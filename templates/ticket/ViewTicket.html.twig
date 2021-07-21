@@ -20,14 +20,13 @@
 				</div>
 				<div class="card-footer">
 					{% if is_granted('ROLE_ADMIN') %}
-						<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">Modifier</a>
+						<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link"><i class="bi bi-pencil-square"></i></a>
 					{% endif %}
-					<a type="button" class="btn btn-danger" href="/delete/{{ticket.id}}" class="card-link">Supprimer</a>
+					<a type="button" class="btn btn-danger" href="/delete/{{ticket.id}}" class="card-link"><i class="bi bi-x-square-fill"></i></a>
 				</div>
 			</div><br>
 		</div>
 	</div>
-
 	<div class="col">{{('Commentaires')|trans({},'blog')}}:
 		{% for comment in comments %}
 			<ul>
@@ -39,10 +38,12 @@
 					<div class="card-footer">
 						<p>{{comment.auteur}}</p>
 					</div>
+					<a type="button" class="btn btn-danger" href="/deleteComment/{{comment.id}}" class="card-link"><i class="bi bi-x-square-fill"></i></a>
+				
 				</div>
 			</ul>
 		{% else %}
-			<p>Il n'y a pas encore de commentaire, publiez le premier !</p>
+			<p>Aucun message pour l'instant</p>
 		{% endfor %}
 		{{ form(form) }}
 		</div>
