@@ -9,28 +9,93 @@
 {% endblock %}
 
 {% block body %}
-	{% if is_granted('ROLE_ADMIN') %}
-		{% for ticket in tickets %}
-			<ul>
-				<div class="card" style="width: 50rem;">
-					<div class="card-body">
-						<h5 class="card-title"><a href="ticket/{{ticket.id}}">{{ticket.Titre}}</a></h5>
-						<h6 class="card-subtitle mb-2 text-muted">{{ticket.demandeur}} - Le ticket est {{ticket.EtatTicket}}</h6>
+	<button onclick="showDivTicketFerme()">Tickets Fermé</button>
+	<button onclick="showDivTickets()">Tickets Non résolu</button>
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+			Dropdown button
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+			<li>
+				<a class="dropdown-item" href="#">Tickets Fermé</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="#">Tickets Non résolu</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="#">Something else here</a>
+			</li>
+		</ul>
+	</div>
 
+	{% if is_granted('ROLE_ADMIN') %}
+		<div id="Tickets">
+			{% for ticket in tickets %}
+				<ul>
+					<div class="card" style="width: 50rem;">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="ticket/{{ticket.id}}">{{ticket.Titre}}</a>
+							</h5>
+							<h6 class="card-subtitle mb-2 text-muted">{{ticket.demandeur}}
+								- Le ticket est
+								{{ticket.EtatTicket}}</h6>
+
+						</div>
 					</div>
-				</div>
-			</ul>
-		{% endfor %}
+				</ul>
+			{% endfor %}
+		</div>
+		<div id="TicketsFerme" style="display:none">
+
+			{% for ticketFerme in ticketsFermes %}
+				<ul>
+					<div class="card" style="width: 50rem;">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="ticket/{{ticketFerme.id}}">{{ticketFerme.Titre}}</a>
+							</h5>
+							<h6 class="card-subtitle mb-2 text-muted">{{ticketFerme.demandeur}}
+								- Le ticket est
+								{{ticketFerme.EtatTicket}}</h6>
+
+						</div>
+					</div>
+				</ul>
+			{% endfor %}
+		</div>
+
 	{% endif %}
 	{% for ticketuser in ticketuser %}
 		<ul>
 			<div class="card" style="width: 50rem;">
 				<div class="card-body">
-					<a href="ticket/{{ticketuser.id}}">{{ticketuser.Titre}}</a>
-					<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+					<h5 class="card-title">
+						<a href="ticket/{{ticketuser.id}}">{{ticketuser.Titre}}</a>
+					</h5>
+					<h6 class="card-subtitle mb-2 text-muted">{{ticketuser.demandeur}}
+						- Le ticket est
+						{{ticketuser.EtatTicket}}</h6>
 
 				</div>
 			</div>
 		</ul>
 	{% endfor %}
+
+	<script>
+		function showDivTicketFerme() {
+
+
+document.getElementById("TicketsFerme").style.display = 'inline';
+document.getElementById("Tickets").style.display = 'none';
+
+}
+function showDivTickets() {
+
+
+document.getElementById("TicketsFerme").style.display = 'none';
+document.getElementById("Tickets").style.display = 'inline';
+
+}
+	</script>
 {% endblock %}

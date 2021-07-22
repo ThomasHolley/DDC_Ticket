@@ -48,8 +48,9 @@ class TicketController extends AbstractController
         $username = $this->getUser()->getUsername();
         $tickets = $emi->getRepository('App:Ticket')->findTicketNoFerme();
         $ticketuser = $emi->getRepository('App:Ticket')->findTicketUser($username);
+        $ticketsFermes = $emi->getRepository('App:Ticket')->findTicketFerme();
 
-        return $this->render("ticket/listTicket.html.twig", array('tickets' => $tickets, 'ticketuser' => $ticketuser));
+        return $this->render("ticket/listTicket.html.twig", array('tickets' => $tickets, 'ticketuser' => $ticketuser, 'ticketsFermes' => $ticketsFermes));
     }
 
     /**
@@ -71,9 +72,9 @@ class TicketController extends AbstractController
     public function listTicketFermeAction(EntityManagerInterface $emi)
     {
 
-        $tickets = $emi->getRepository('App:Ticket')->findTicketFerme();
+        $ticketsFerme = $emi->getRepository('App:Ticket')->findTicketFerme();
 
-        return $this->render("ticket/listTicketFerme.html.twig", array('tickets' => $tickets));
+        return $this->render("ticket/listTicketFerme.html.twig", array('ticketsFerme' => $ticketsFerme));
     }
 
 
