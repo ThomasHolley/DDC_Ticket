@@ -21,15 +21,18 @@ class RegistrationFormType extends AbstractType
             ->add('photo', FileType::class,[
                 'label' => 'Photo de profile',
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'attr' => ['style' => 'width: 13%'],
             ])
             ->add('email',null, array(
                 'attr' => ['style' => 'width: 300px'],
             ))
             ->add('username',null, array(
+                'label' => 'Nom d\'utilisateur',
                 'attr' => ['style' => 'width: 300px'],
             ))
             ->add('Conditions_d_utilisation', CheckboxType::class, [
+                'label' => 'Conditions d\'utilisation',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
