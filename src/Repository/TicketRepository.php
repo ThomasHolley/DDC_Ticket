@@ -52,6 +52,15 @@ class TicketRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
+    public function findTicketNoFermeOrderByDate()
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.EtatTicket != 4')
+            ->orderBy('t.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findTicketFerme()
     {

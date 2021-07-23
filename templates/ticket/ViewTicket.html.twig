@@ -9,29 +9,40 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="row justify-content-md-center ">
-		<div class="col-md-auto">
-			<div class="card" style="width: 50rem;">
-				<div class="card-header">{{ticket.Titre}}<p class="card-text text-center">{{ticket.EtatTicket}}</p>
-				</div>
-				<div class="card-body">
-					<p class="card-text text-center">{{ticket.Message}}</p>
-				</div>
-				<div class="card-footer">
-					{% if is_granted('ROLE_ADMIN') %}
-						<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">
-							<i class="bi bi-pencil-square"></i>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="card" style="width: 50rem;">
+					<div class="card-header">{{ticket.Titre}}<p class="card-text text-center">{{ticket.EtatTicket}}</p>
+					</div>
+					<div class="card-body">
+						<p class="card-text text-center">{{ticket.Message}}</p>
+					</div>
+					<div class="card-footer">
+						{% if is_granted('ROLE_ADMIN') %}
+							<a type="button" class="btn btn-warning" href="/edit/{{ticket.id}}" class="card-link">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+						{% endif %}
+						<a type="button" class="btn btn-danger" href="/delete/{{ticket.id}}" class="card-link">
+							<i class="bi bi-x-square-fill"></i>
 						</a>
-					{% endif %}
-					<a type="button" class="btn btn-danger" href="/delete/{{ticket.id}}" class="card-link">
-						<i class="bi bi-x-square-fill"></i>
-					</a>
+					</div>
 				</div>
-			</div><br>
+			</div>
+			<div class="col">
+				<div class="card">
+					<div class="card-header">Informations sur le demandeur</div>
+					<div class="card-body">
+						<p class="card-text text-center"></p>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
-	<div class="col">{{('Commentaires')|trans({},'blog')}}:
+
+	<div class="col">
 		{% for comment in comments %}
 			<ul>
 				<div class="card" style="width: 50rem;">
@@ -46,8 +57,6 @@
 
 				</div>
 			</ul>
-		{% else %}
-			<p>Aucun message pour l'instant</p>
 		{% endfor %}
 		{{ form(form) }}
 		</div>

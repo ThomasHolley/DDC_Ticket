@@ -19,6 +19,18 @@
 		</a>
 	</div>
 
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="myFunction()">
+    Dropdown link
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+
 
 	{% if is_granted('ROLE_ADMIN') %}
 		<div id="Tickets">
@@ -88,6 +100,10 @@ function showDivTickets() {
 document.getElementById("TicketsFerme").style.display = 'none';
 document.getElementById("Tickets").style.display = 'inline';
 
+}
+
+function myFunction() {
+  document.getElementById("dropdown-menu").style.display = 'inline';;
 }
 	</script>
 {% endblock %}
