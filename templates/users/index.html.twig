@@ -10,10 +10,20 @@
 
 {% block body %}
 	<div class="card">
+		<div class="card-header">
+			<i class="bi bi-person-circle"></i>
+			Information d'utilisateur
+		</div>
 		<div class="card-body">
 			<div class="container">
 				<div class="row">
 					<div class="col">
+						<img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_960_720.png" class="rounded mx-auto d-block" style=" width: 30%;" alt="Image de profil">
+						<button type="button" class="btn btn-warning" style="position: absolute; left: 34%;bottom:-4%;">
+							<i class="bi bi-upload"></i>
+							Changer de photo</button>
+					</div>
+					<div class="col" id="UserInfo">
 						<p>Nom :
 							{{ app.user.name }}</p>
 						<p>Prénom :
@@ -22,15 +32,73 @@
 							{{ app.user.username }}</p>
 						<p>E-mail :
 							{{ app.user.email }}</p>
+						<button type="button" class="btn btn-warning" onclick="showDivTicketFerme()">
+							<i class="bi bi-pencil-square"></i>
+							Modifier le profil</button>
 					</div>
-					<div class="col">
-						Column
-					</div>
-					<div class="col">
-						Column
+					<div class="col" id="FormEdit" style="display:none;">
+						{{ form(userForm) }}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
+		<div class="card">
+			<div class="card-header">
+				<i class="bi bi-sticky-fill"></i>
+				Informations sur les tickets
+			</div>
+			<div class="card-body">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<div class="card-header">
+									Tickets mis en ligne
+								</div>
+								<div class="card-body">
+									{{TtllTicket}}
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="card-header">
+								Tickets en cours
+							</div>
+							<div class="card">
+								<div class="card-body">
+									{{TtlTicketEC}}
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="card-header">
+								Tickets résolu
+							</div>
+							<div class="card">
+								<div class="card-body">
+									{{TtlTicketR}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function showDivTicketFerme() {
+
+
+document.getElementById("FormEdit").style.display = 'inline';
+document.getElementById("UserInfo").style.display = 'none';
+
+}
+function showDivTickets() {
+
+
+document.getElementById("TicketsFerme").style.display = 'none';
+document.getElementById("Tickets").style.display = 'inline';
+
+}
+		</script>
+	{% endblock %}

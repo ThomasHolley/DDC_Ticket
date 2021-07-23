@@ -70,6 +70,33 @@ class TicketRepository extends ServiceEntityRepository
             ->getResult();
     }
     
+    public function findTotalTicketUser($username)
+    {
+        return $this->createQueryBuilder('t')
+        ->where('t.Demandeur = :actual')->setParameter('actual', $username)
+        ->select('count(t.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+    
+    public function findTotalTicketEnCoursUser($username)
+    {
+        return $this->createQueryBuilder('t')
+        ->where('t.EtatTicket != 4 AND t.Demandeur = :actual')->setParameter('actual', $username)
+        ->select('count(t.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+    
+    public function findTotalTicketResoluUser($username)
+    {
+        return $this->createQueryBuilder('t')
+        ->where('t.EtatTicket = 4 AND t.Demandeur = :actual')->setParameter('actual', $username)
+        ->select('count(t.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+    
 
 }
     

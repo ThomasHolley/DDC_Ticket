@@ -65,19 +65,6 @@ class TicketController extends AbstractController
         return $this->render("demandeur/listTicket.html.twig", array('ticketuser' => $ticketuser));
     }
 
-    /**
-     * @Route("/ListTicketFerme", name="List_ticket_Ferme")
-     * 
-     */
-    public function listTicketFermeAction(EntityManagerInterface $emi)
-    {
-
-        $ticketsFerme = $emi->getRepository('App:Ticket')->findTicketFerme();
-
-        return $this->render("ticket/listTicketFerme.html.twig", array('ticketsFerme' => $ticketsFerme));
-    }
-
-
 
     /**
      * @Route("/ticket/{id}/", name="view_ticket")

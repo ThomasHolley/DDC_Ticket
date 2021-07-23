@@ -9,24 +9,16 @@
 {% endblock %}
 
 {% block body %}
-	<button onclick="showDivTicketFerme()">Tickets Fermé</button>
-	<button onclick="showDivTickets()">Tickets Non résolu</button>
-	<div class="dropdown">
-		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-			Dropdown button
-		</button>
-		<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-			<li>
-				<a class="dropdown-item" href="#">Tickets Fermé</a>
-			</li>
-			<li>
-				<a class="dropdown-item" href="#">Tickets Non résolu</a>
-			</li>
-			<li>
-				<a class="dropdown-item" href="#">Something else here</a>
-			</li>
-		</ul>
+
+	<div class="btn-group" role="group" aria-label="Basic example">
+		<button type="button" class="btn btn-primary" onclick="showDivTicketFerme()">Tickets Fermé</button>
+		<button type="button" class="btn btn-primary" onclick="showDivTickets()">Tickets Non résolu</button>
+		<button type="button" class="btn btn-primary">Tickets Ouvert</button>
+		<a type="button" class="btn btn-success" href="{{path('add_ticket')}}" class="card-link">
+			<i class="bi bi-plus-square-fill"></i>
+		</a>
 	</div>
+
 
 	{% if is_granted('ROLE_ADMIN') %}
 		<div id="Tickets">
