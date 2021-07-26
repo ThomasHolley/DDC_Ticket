@@ -31,7 +31,7 @@ class EditProfilType extends AbstractType
             ->add('firstname')
             ->add('username')
             ->add('photo', FileType::class,[
-                'label' => 'Photo de profile',
+                'label' => 'Photo de profil',
                 'mapped' => false,
                 'required' => false
             ])
