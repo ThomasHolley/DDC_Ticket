@@ -12,36 +12,43 @@
 {% block body %}
 	{% if is_granted('ROLE_USER') %}
 
-		<h1>Bienvenue {{app.user.username}} sur le gestionnaire de tickets de Dealer De Coque</h1>
+		<h1>Bienvenue
+			{{app.user.username}}
+			sur le gestionnaire de tickets de Dealer De Coque</h1>
 		<p>Vous pourrez ici créer des tickets sur des problèmes rencontré sur les différents site</p>
 
 	{% endif %}
 	{% if is_granted('ROLE_ADMIN') %}
-
-
-		<div class="card-deck">
+		<div class="card-group">
 			<div class="card w-50">
 				<div class="card-body">
-					<a href="{{path('List_ticket')}}"><h5 class="card-title">Tickets non résolu:</h5></a>
-					<p class="card-text">{{TotalticketNR}} Ticket</p>
+					<a href="{{path('List_ticket')}}">
+						<h5 class="card-title">Tickets non résolu:</h5>
+					</a>
+					<p class="card-text">{{TotalticketNR}}
+						Ticket</p>
 				</div>
 			</div>
-
 			<div class="card w-50">
 				<div class="card-body">
-					<a href="#"><h5 class="card-title">Tickets Ouvert:</h5></a>
-					<p class="card-text">{{TotalTicketO}} Ticket</p>
+					<a href="#">
+						<h5 class="card-title">Tickets Ouvert:</h5>
+					</a>
+					<p class="card-text">{{TotalTicketO}}
+						Ticket</p>
 				</div>
 			</div>
-
-
 			<div class="card w-50">
 				<div class="card-body">
-					<a href="{{path('List_ticket') }}"><h5 class="card-title">Tickets Fermé:</h5></a>
-					<p class="card-text">{{TotalTicketF}} Ticket</p>
+					<a href="{{path('List_ticket') }}">
+						<h5 class="card-title">Tickets Fermé:</h5>
+					</a>
+					<p class="card-text">{{TotalTicketF}}
+						Ticket</p>
 				</div>
 			</div>
 		</div>
+
 
 	{% endif %}
 
