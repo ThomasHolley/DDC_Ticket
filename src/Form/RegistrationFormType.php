@@ -19,10 +19,13 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('photo', FileType::class,[
-                'label' => 'Photo de profile',
+                'label' => 'Photo de profil',
                 'mapped' => false,
                 'required' => false,
-                'attr' => ['style' => 'width: 13%'],
+                'attr' => [
+                    'class' => 'profil_picture_Import',
+                    'style' => 'width: 5%'
+                ],
             ])
             ->add('email',null, array(
                 'attr' => ['style' => 'width: 300px'],

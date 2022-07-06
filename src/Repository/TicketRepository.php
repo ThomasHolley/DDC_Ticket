@@ -39,7 +39,7 @@ class TicketRepository extends ServiceEntityRepository
     public function NbreticketFerme()
     {
         return $this->createQueryBuilder('t')
-            ->where('t.EtatTicket = 4')
+            ->where('t.EtatTicket = 3')
             ->select('count(t.id)')
             ->getQuery()
             ->getSingleScalarResult();
@@ -48,7 +48,7 @@ class TicketRepository extends ServiceEntityRepository
     public function findTicketNoFerme()
     {
         return $this->createQueryBuilder('t')
-            ->where('t.EtatTicket != 4')
+            ->where('t.EtatTicket != 3')
             ->getQuery()
             ->getResult();
     }
@@ -56,7 +56,7 @@ class TicketRepository extends ServiceEntityRepository
     public function findTicketNoFermeOrderByDate()
     {
         return $this->createQueryBuilder('t')
-            ->where('t.EtatTicket != 4')
+            ->where('t.EtatTicket != 3')
             ->orderBy('t.date', 'DESC')
             ->getQuery()
             ->getResult();
@@ -65,7 +65,7 @@ class TicketRepository extends ServiceEntityRepository
     public function findTicketFerme()
     {
         return $this->createQueryBuilder('t')
-            ->where('t.EtatTicket = 4')
+            ->where('t.EtatTicket = 3')
             ->getQuery()
             ->getResult();
     }
@@ -91,7 +91,7 @@ class TicketRepository extends ServiceEntityRepository
     public function findTotalTicketEnCoursUser($username)
     {
         return $this->createQueryBuilder('t')
-        ->where('t.EtatTicket != 4 AND t.Demandeur = :actual')->setParameter('actual', $username)
+        ->where('t.EtatTicket != 3 AND t.Demandeur = :actual')->setParameter('actual', $username)
         ->select('count(t.id)')
         ->getQuery()
         ->getSingleScalarResult();
@@ -100,7 +100,7 @@ class TicketRepository extends ServiceEntityRepository
     public function findTotalTicketResoluUser($username)
     {
         return $this->createQueryBuilder('t')
-        ->where('t.EtatTicket = 4 AND t.Demandeur = :actual')->setParameter('actual', $username)
+        ->where('t.EtatTicket = 3 AND t.Demandeur = :actual')->setParameter('actual', $username)
         ->select('count(t.id)')
         ->getQuery()
         ->getSingleScalarResult();
